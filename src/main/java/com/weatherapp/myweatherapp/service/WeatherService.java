@@ -15,7 +15,7 @@ public class WeatherService {
     @Autowired
     VisualcrossingRepository weatherRepo;
 
-    private final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
+    private final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
 
     public CityInfo forecastByCity(String city) {
         return weatherRepo.getByCity(city);
@@ -36,7 +36,7 @@ public class WeatherService {
             
             return (daylight1 > daylight2) ? city1 + " has longer daylight hours." : city2 + " has longer daylight hours.";
         } catch (ParseException e) {
-            return "Error parsing sunrise/sunset times.";
+            return "Error parsing sunrise/sunset times: " + e.getMessage();
         }
     }
 
