@@ -38,7 +38,6 @@ public class CityInfo {
   }
 
   static class Days {
-
     @JsonProperty("datetime")
     String date;
 
@@ -53,10 +52,17 @@ public class CityInfo {
 
     @JsonProperty("conditions")
     String conditions;
-
-    @JsonProperty("description")
-    String description;
-
   }
 
+  public String getSunrise() {
+    return currentConditions.sunrise;
+  }
+
+  public String getSunset() {
+    return currentConditions.sunset;
+  }
+
+  public String getConditions() {
+    return currentConditions.conditions;
+  }
 }
