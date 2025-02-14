@@ -7,23 +7,37 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class WeatherController {
 
-  @Autowired
-  WeatherService weatherService;
+    @Autowired
+    WeatherService weatherService;
 
-  @GetMapping("/forecast/{city}")
-  public ResponseEntity<CityInfo> forecastByCity(@PathVariable("city") String city) {
+    @GetMapping("/forecast/{city}")
+    public ResponseEntity<CityInfo> forecastByCity(@PathVariable("city") String city) {
+        CityInfo ci = weatherService.forecastByCity(city);
+        return ResponseEntity.ok(ci);
+    }
 
-    CityInfo ci = weatherService.forecastByCity(city);
+    @GetMapping("/compare-daylight")
+    public ResponseEntity<String> compareDaylightHours(@RequestParam String city1, @RequestParam String city2) {
+        try {
+            String result = weatherService.compareDaylightHours(city1, city2);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 
-    return ResponseEntity.ok(ci);
-  }
-
-  // TODO: given two city names, compare the length of the daylight hours and return the city with the longest day
-
-  // TODO: given two city names, check which city its currently raining in
-
+    @GetMapping("/rain-check")
+    public ResponseEntity<String> checkRain(@RequestParam String city1, @RequestParam String city2) {
+        try {
+            String result = weatherService.checkRain(city1, city2);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 }
