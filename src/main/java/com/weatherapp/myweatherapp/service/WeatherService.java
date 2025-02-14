@@ -34,6 +34,9 @@ public class WeatherService {
             Date sunset2 = timeFormat.parse(cityInfo2.getSunset());
             long daylight2 = sunset2.getTime() - sunrise2.getTime();
             
+            if (daylight1 == daylight2) {
+                return "Both cities have the same daylight hours.";
+            }
             return (daylight1 > daylight2) ? city1 + " has longer daylight hours." : city2 + " has longer daylight hours.";
         } catch (ParseException e) {
             return "Error parsing sunrise/sunset times: " + e.getMessage();
