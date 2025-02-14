@@ -1,40 +1,62 @@
-# MyWeather App Tech Test
+# MyWeather App - Feature Implementation Documentation
 
-Welcome to the MyWeather App Tech Test.
+## Overview
+This project extends the MyWeather App by adding two features:
+1. **Daylight Hours Comparison** – Compares the daylight duration between two cities.
+2. **Rain Check** – Determines which of the two cities is currently experiencing rain.
 
-## The Challenge
+## Implementation Choices
+- **Spring Boot**: Used for structured API development.
+- **REST API Integration**: Weather data is fetched using Visual Crossing API.
+- **Error Handling**: Implemented exception handling for invalid API responses.
+- **Unit Testing**: JUnit and Mockito are used to ensure feature reliability.
+- **Simple Date Format**: Used to parse sunrise and sunset times correctly.
 
-You are tasked with implementing two new features in the app:
+## How It Works
+- The `WeatherController` exposes two new endpoints.
+- The `WeatherService` calls `VisualcrossingRepository` to fetch city weather data.
+- Daylight hours are calculated by subtracting sunrise time from sunset time.
+- Rain check determines if the conditions contain "rain".
+- The responses return a simple string indicating the results.
 
-1. **Daylight Hours Comparison:** Given two city names, compare the length of the daylight hours between them and return the city with the longest day. In this context, "daylight hours" means the time between sunrise and sunset.
+## Endpoints
+### 1. Compare Daylight Hours
+**Request:**
+```
+GET /compare-daylight?city1={city1}&city2={city2}
+```
+**Response:**
+```
+"City1 has longer daylight hours."
+```
 
-2. **Rain Check:** Given two city names, check which city it is currently raining in.
+### 2. Check Rain Status
+**Request:**
+```
+GET /rain-check?city1={city1}&city2={city2}
+```
+**Response:**
+```
+"City1 is currently experiencing rain."
+```
 
-In addition to implementing these 2 features, you will also need to write tests verifying that your code works as expected.
+## Running the Project
+1. Add your API key to `application.properties`:
+   ```
+   weather.visualcrossing.key=YOUR_API_KEY
+   ```
+2. Build and run the application:
+   ```
+   mvn clean install
+   mvn spring-boot:run
+   ```
+3. Test the API using a browser or`curl`.
 
-If possible, include exception handling in the controller.
+## Running Tests
+Run all unit tests:
+```
+mvn test
+```
+Expected output: All tests should pass.
 
-Finally, you can write any documentation as you see fit, explaining your choices and how the code works.
 
-## The Codebase
-
-The codebase is a Java application built with the Spring framework. It includes a `WeatherController` class where you will add your new features.
-
-## Implementation Details
-
-You will need to implement these features by adding new endpoints to the `WeatherController`.
-
-### Prerequisites
-
-- [Java sdk 17](https://openjdk.java.net/projects/jdk/17/)
-- [Maven 3.6.3+](https://maven.apache.org/install.html)
-- API key for [Visual Crossing Weather API](https://www.visualcrossing.com/weather-data-editions). 
-  - This can be done by creating a free account on the above link. Then you will need to add your key to the `weather.visualcrossing.key` field in src/main/resources/application.properties
-
-## Submission
-
-* Push the downloaded version of this repo to your Github
-* Make a branch for your changes
-* Once you're ready to submit, raise a Pull Request to merge your changes with your main branch and share the repo with us.
-
-Good luck!
