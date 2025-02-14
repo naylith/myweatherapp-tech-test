@@ -1,3 +1,4 @@
+# Submission for Software Engineer Graduate Program Test - The Telegraph
 # MyWeather App - Feature Implementation Documentation
 
 ## Overview
@@ -41,7 +42,7 @@ GET /rain-check?city1={city1}&city2={city2}
 ```
 
 ## Running the Project
-1. Add your API key to `application.properties`:
+1. Add API key to `application.properties` (I have added mine for this submission):
    ```
    weather.visualcrossing.key=YOUR_API_KEY
    ```
